@@ -1,44 +1,103 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Real-Time Map Interface</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <style>
-        #map { height: 900px; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="map"></div>
-    
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-        // Initialize the map
-        var map = L.map('map').setView([51.505, -0.09], 13);
+    <header>
+        <div class="logo">
+            <img src="GeoSense Logo.png" alt="Logo">
+        </div>
+        <h1>GeoSense</h1>
+        <nav class="tabs">
+            <a href="#" class="tab">Track</a>
+            <a href="#" class="tab">Evaluate</a>
+            <a href="#" class="tab">Operate</a>
+        </nav>
+    </header>
 
-        // Add a tile layer
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+    <aside class="sidebar">
+        <div class="card">
+            <h2>Command Center</h2>
+            <div class="action-card">
+                <div class="action-icon">
+                    <img src="icon1.svg" alt="Action Icon 1">
+                </div>
+                <div class="action-details">
+                    <h3>Action 1</h3>
+                    <p>Date: 2022-03-01</p>
+                    <p>Time: 10:00 AM</p>
+                </div>
+                <button class="action-button">Action</button>
+            </div>
+            <div class="action-card">
+                <div class="action-icon">
+                    <img src="icon1.svg" alt="Action Icon 2">
+                </div>
+                <div class="action-details">
+                    <h3>Action 2</h3>
+                    <p>Date: 2022-03-02</p>
+                    <p>Time: 11:00 AM</p>
+                </div>
+                <button class="action-button">Action</button>
+            </div>
+            <div class="action-card">
+                <div class="action-icon">
+                    <img src="icon1.svg" alt="Action Icon 3">
+                </div>
+                <div class="action-details">
+                    <h3>Action 3</h3>
+                    <p>Date: 2022-03-03</p>
+                    <p>Time: 12:00 PM</p>
+                </div>
+                <button class="action-button">Action</button>
+            </div>
+            <div class="action-card">
+                <div class="action-icon">
+                    <img src="icon1.svg" alt="Action Icon 4">
+                </div>
+                <div class="action-details">
+                    <h3>Action 4</h3>
+                    <p>Date: 2022-03-04</p>
+                    <p>Time: 1:00 PM</p>
+                </div>
+                <button class="action-button">Action</button>
+            </div>
+            <div class="action-card">
+                <div class="action-icon">
+                    <img src="icon1.svg" alt="Action Icon 5">
+                </div>
+                <div class="action-details">
+                    <h3>Action 5</h3>
+                    <p>Date: 2022-03-05</p>
+                    <p>Time: 2:00 PM</p>
+                </div>
+                <button class="action-button">Action</button>
+            </div>
+        </div>
+    </aside>
 
-        // Connect to the WebSocket server
-        var socket = io();
-
-        // Receive sensor data and update the map
-        socket.on('sensorData', function(data) {
-            console.log('Sensor data received:', data);
-            // Update the map with sensor data
-            // Example: Display a marker at the sensor location
-            var marker = L.marker([51.505, -0.09]).addTo(map);
-            marker.bindPopup(`Sensor Value: ${data.value}`).openPopup();
-        });
-
-        // Send a command to the backend
-        function sendCommand(command) {
-            socket.emit('commandAsset', command);
-        }
-    </script>
+    <main>
+        <div id="map"></div>
+        <table id="data-table">
+            <thead>
+                <tr>
+                    <th>Aircraft Type</th>
+                    <th>Time in Flight</th>
+                    <th>Status</th>
+                    <th>Connection Strength</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Table data will be dynamically added here -->
+            </tbody>
+        </table>
+    </main>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
